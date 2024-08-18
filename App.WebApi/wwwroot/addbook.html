@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Booktopia</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">Booktopia</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="aboutus.html">About us</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Manager
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="addbook.html">Add Book</a></li>
+                        <li><a class="dropdown-item" href="showbook.html">Show Book</a></li>
+                        <li><a class="dropdown-item" href="deletebook.html">Delete Book</a></li>
+                        <li><a class="dropdown-item" href="updatebook.html">Update Book</a></li>
+                        <li><a class="dropdown-item" href="showbooks.html">Show Books</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<br><br><br>
+<div class="container mx-auto mt-4">
+    <form id="book-form" class="requires-validation" novalidate>
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="title" required>
+            <div class="invalid-feedback">
+                Please provide a title.
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="author" class="form-label">Author</label>
+            <input type="text" class="form-control" id="author" required>
+            <div class="invalid-feedback">
+                Please provide an author name.
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="publicationYear" class="form-label">Publication Year</label>
+            <input type="number" class="form-control" id="publicationYear" min="1000" max="2024" required>
+            <div class="invalid-feedback">
+                Please provide a valid publication year between 1000 and 2024.
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="price" class="form-label">Price</label>
+            <input type="number" class="form-control" id="price" step="0.01" min="0.01" required>
+            <div class="invalid-feedback">
+                Please provide a valid price greater than 0.
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="imageUrl" class="form-label">Image URL</label>
+            <input type="url" class="form-control" id="imageUrl" required>
+            <div class="invalid-feedback">
+                Please provide a valid URL.
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+<div class="container">
+    <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+            <li class="nav-item"><a href="index.html" class="nav-link px-2 text-body-secondary">Home</a></li>
+            <li class="nav-item"><a href="aboutus.html" class="nav-link px-2 text-body-secondary">About Us</a></li>
+        </ul>
+        <p class="text-center text-body-secondary">© 2024 Booktopia, Inc</p>
+        <p class="text-center text-body-secondary">Designed by Kaan Ses</p>
+    </footer>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script>
+    (function () {
+        'use strict';
+
+        // Bootstrap's custom validation logic
+        const forms = document.querySelectorAll('.requires-validation');
+        Array.from(forms).forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    })();
+
+    document.getElementById('book-form').addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent the form from submitting normally
+
+        // Get form data
+        let title = document.getElementById('title').value;
+        let author = document.getElementById('author').value;
+        let publicationYear = document.getElementById('publicationYear').value;
+        let price = document.getElementById('price').value;
+        let imageUrl = document.getElementById('imageUrl').value;
+
+        // Construct query string parameters
+        let queryParams = new URLSearchParams({
+            title: title,
+            author: author,
+            publicationYear: publicationYear,
+            price: price,
+            imageUrl: imageUrl
+        }).toString();
+
+        // Send POST request with query parameters
+        fetch(`http://localhost:5218/api/Book?${queryParams}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(err => { throw new Error(err.message); });
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Success:', data);
+                // Clear form fields
+                document.getElementById('book-form').reset();
+                alert("Book added successfully!");
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert("Failed to add book: " + error.message);
+            });
+    });
+</script>
+</body>
+</html>
