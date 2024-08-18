@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,13 +46,13 @@
             <label for="bookIdInput" class="form-label">Book ID</label>
             <input type="text" class="form-control" id="bookIdInput" placeholder="Enter book ID" required>
         </div>
+        <button type="submit" id="findBookButton" class="btn btn-primary">Find</button>
         <div id="bookDetailsContainer" class="d-none">
             <!-- Book details will be dynamically inserted here -->
         </div>
         <div class="mb-3">
             <img id="bookCoverImage" class="img-fluid" src="" alt="Book Cover" style="display:none;">
         </div>
-        <button type="submit" class="btn btn-primary">Update</button>
     </form>
     <div id="feedbackMessage" class="mt-3"></div>
 </div>
@@ -65,8 +64,8 @@
             <li class="nav-item"><a href="index.html" class="nav-link px-2 text-body-secondary">Home</a></li>
             <li class="nav-item"><a href="aboutus.html" class="nav-link px-2 text-body-secondary">About Us</a></li>
         </ul>
-        <p class="text-center text-body-secondary">© 2024 Booktopia, Inc</p><span>
-    </span><p class="text-center text-body-secondary">Designed by Kaan Ses</p>
+        <p class="text-center text-body-secondary">© 2024 Booktopia, Inc</p>
+        <p class="text-center text-body-secondary">Designed by Kaan Ses</p>
     </footer>
 </div>
 
@@ -80,7 +79,9 @@
         const bookDetailsContainer = document.getElementById('bookDetailsContainer');
         const bookCoverImage = document.getElementById('bookCoverImage');
         const feedbackMessage = document.getElementById('feedbackMessage');
+        const findBookButton = document.getElementById('findBookButton');
 
+        // Handle form submission to fetch book details
         updateBookForm.addEventListener('submit', function(event) {
             event.preventDefault();
             const bookId = document.getElementById('bookIdInput').value.trim();
@@ -97,7 +98,7 @@
             bookCoverImage.style.display = 'none';
 
             // Fetch the book details
-            fetch(`http://localhost:5106/api/Book${bookId}`)
+            fetch(`http://localhost:5106/api/Book/${bookId}`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Book not found');
@@ -123,16 +124,72 @@
                             <label for="priceInput" class="form-label">Price</label>
                             <input type="number" class="form-control" id="priceInput" value="${data.price}" required>
                         </div>
+                        <div class="mb-3">
+                            <label for="imageUrlInput" class="form-label">Image Url</label>
+                            <input type="text" class="form-control" id="imageUrlInput" value="${data.imageUrl}" required>
+                        </div>
+                        <button type="button" id="updateBookButton" class="btn btn-primary">Update Book</button>
                     `;
                     bookDetailsContainer.classList.remove('d-none');
-                    bookCoverImage.src = data.imageUrl;
-                    bookCoverImage.style.display = 'block';
+                    findBookButton.style.display = 'none'; // Hide the "Find" button
+
+                    if (data.imageUrl) {
+                        bookCoverImage.src = data.imageUrl;
+                        bookCoverImage.style.display = 'block';
+                    } else {
+                        bookCoverImage.style.display = 'none';
+                    }
+
+                    // Attach event listener directly after the button is created
+                    document.getElementById('updateBookButton').addEventListener('click', function() {
+                        updateBook(bookId);
+                    });
                 })
                 .catch(error => {
                     feedbackMessage.textContent = error.message;
                     feedbackMessage.className = 'text-danger';
+                    console.error('Error fetching book:', error);
                 });
         });
+
+        // Function to send PUT request with query strings to update the book
+        function updateBook(bookId) {
+            const updatedBook = {
+                Title: document.getElementById('titleInput').value.trim(),
+                Author: document.getElementById('authorInput').value.trim(),
+                ProductionYear: document.getElementById('productionYearInput').value.trim(),
+                Price: document.getElementById('priceInput').value.trim(),
+                ImageUrl: document.getElementById('imageUrlInput').value.trim()
+            };
+
+            // Construct query string
+            const queryString = new URLSearchParams(updatedBook).toString();
+
+            // Send PUT request with query string
+            fetch(`http://localhost:5106/api/Book/${bookId}?${queryString}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to update the book');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    feedbackMessage.textContent = 'Book updated successfully!';
+                    feedbackMessage.className = 'text-success';
+                    alert('Book updated successfully!'); // Show alert on successful update
+                    console.log('Updated book:', data);
+                })
+                .catch(error => {
+                    feedbackMessage.textContent = error.message;
+                    feedbackMessage.className = 'text-danger';
+                    console.error('Error updating book:', error);
+                });
+        }
     });
 </script>
 </body>

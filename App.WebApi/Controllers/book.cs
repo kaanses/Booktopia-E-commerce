@@ -2,14 +2,13 @@ namespace App.WebApi.Controllers;
 
 public class book
 {
-    
     public int Id { get; set; }
     
-    public string Title { get; set; }
-    public string Author { get; set; }
+    public string? Title { get; set; }
+    public string? Author { get; set; }
     public int PublicationYear { get; set; }
     public decimal Price { get; set; }
-    public string ImageUrl { get; set; }
+    public string? ImageUrl { get; set; }
     private string FormatName(string name)
     {
         string[] words = name.Split(' ');

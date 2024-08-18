@@ -11,20 +11,25 @@
     event.preventDefault();
     let el = $(this).attr('href');
     let elWrapped = $(el);
-    let header_height = $('.navbar').height();
 
-    scrollToDiv(elWrapped, header_height);
-    return false;
-
-    function scrollToDiv(element, navheight) {
-      let offset = element.offset();
-      let offsetTop = offset.top;
-      let totalScroll = offsetTop - navheight;
-
-      $('body,html').animate({
-        scrollTop: totalScroll
-      }, 300);
+    if (elWrapped.length) { // Check if the element exists
+      let header_height = $('.navbar').height();
+      scrollToDiv(elWrapped, header_height);
+    } else {
+      console.error('Element not found:', el); // Log error if element doesn't exist
     }
-  });
-})(jQuery);
 
+    return false;
+  });
+
+  // Function to scroll to a specific div
+  function scrollToDiv(element, navheight) {
+    let offset = element.offset();
+    let offsetTop = offset.top;
+    let totalScroll = offsetTop - navheight;
+
+    $('body,html').animate({
+      scrollTop: totalScroll
+    }, 300);
+  }
+})(jQuery);

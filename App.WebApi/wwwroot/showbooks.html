@@ -45,10 +45,11 @@
     <table class="table table-striped mt-4">
         <thead>
         <tr>
+            <th>ID</th>
             <th>Title</th>
             <th>Author</th>
             <th>Price</th>
-            <th>Production Year</th>
+            <th>Publication Year</th>
             <th>Image URL</th>
         </tr>
         </thead>
@@ -90,11 +91,12 @@
                 data.forEach(book => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
-                        <td>${book.Title}</td>
-                        <td>${book.Author}</td>
-                        <td>${book.Price}</td>
-                        <td>${book.ProductionYear}</td>
-                        <td><a href="${book.ImageUrl}" target="_blank">View Image</a></td>
+                        <td>${book.id}</td>
+                        <td>${book.title}</td>
+                        <td>${book.author}</td>
+                        <td>${book.price +"$"}</td>
+                        <td>${book.publicationYear}</td>
+                        <td><a href="${book.imageUrl}" target="_blank">View Image</a></td>
                     `;
                     booksTableBody.appendChild(row);
                 });

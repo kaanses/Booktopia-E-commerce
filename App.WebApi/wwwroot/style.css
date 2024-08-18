@@ -62,7 +62,7 @@ body {
 
 html, body {
     height: 100%;
-    background-color: #152733;
+    background-color: white;
 }
 
 .form-holder {
@@ -190,7 +190,7 @@ html, body {
 }
 
 footer {
-    background-color: #222;
+    background-color: skyblue;
     color: rgba(250, 250, 250, 0.8);
     padding: 1rem 0;
     text-align: center;
