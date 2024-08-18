@@ -7,9 +7,9 @@ builder.Services.AddControllers();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAllOrigins",
-        builder =>
+        corsBuilder =>
         {
-            builder.AllowAnyOrigin()
+            corsBuilder.AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader();
         });

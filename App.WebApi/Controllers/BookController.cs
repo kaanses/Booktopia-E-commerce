@@ -19,7 +19,7 @@ namespace App.WebApi.Controllers
             {
                 return Ok(_books);
             }
-            return BadRequest("Kayıtlı kitap bulunmamaktadır.");
+            return BadRequest("there is no book to show.");
         }
 
         [HttpGet("{id}")]
@@ -32,7 +32,7 @@ namespace App.WebApi.Controllers
             {
                 return Ok(book);
             }
-            return NotFound("Girdiğiniz başlıkta bir kitap bulunamamaktadır");
+            return NotFound("there is no such book with given id.");
         }
 
         [HttpPost]
@@ -59,7 +59,7 @@ namespace App.WebApi.Controllers
                 Price = price,
                 PublicationYear = publicationYear
             });
-            return Ok("Kitap eklendi");
+            return Ok("the book successfully added.");
         }
         [HttpPut ("{id}")]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
@@ -68,19 +68,19 @@ namespace App.WebApi.Controllers
         {
             if (id <= 0)
             {
-                return BadRequest("Girdiğiniz id 0'dan büyük olmalıdır.");
+                return BadRequest("id must be greater than zero");
             }
             var book = _books.Find(b => b.Id == id);
             if (book == null)
             {
-                return NotFound("Girdiğiniz ID'ye sahip bir kitap bulunamamaktadır");
+                return NotFound("there is no such book with given id.");
             }
             book.Title = FormatName(title);
             book.Author = FormatName(author);
             book.ImageUrl = imageUrl;
             book.Price = price;
             book.PublicationYear = publicationYear;
-            return Ok("Kitap başarıyla güncellendi");
+            return Ok("the book successfully updated.");
         }
 
         [HttpDelete("{id}")]
@@ -90,15 +90,15 @@ namespace App.WebApi.Controllers
         {
             if (id <= 0)
             {
-                return BadRequest("Girdiğiniz id 0'dan büyük olmalıdır.");
+                return BadRequest("id must be greater than 0.");
             }
             var book = _books.Find(b => b.Id == id);
             if (book == null)
             {
-                return NotFound("Girdiğiniz ID'ye sahip bir kitap bulunamamaktadır");
+                return NotFound("there is no such book with given id.");
             }
             _books.Remove(book);
-            return Ok("Kitap başarıyla silindi");
+            return Ok("The book successfully deleted.");
         }
         private string FormatName(string name)
         {

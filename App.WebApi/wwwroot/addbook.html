@@ -91,22 +91,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script>
-    (function () {
-        'use strict';
-
-        // Bootstrap's custom validation logic
-        const forms = document.querySelectorAll('.requires-validation');
-        Array.from(forms).forEach(function (form) {
-            form.addEventListener('submit', function (event) {
-                if (!form.checkValidity()) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                }
-                form.classList.add('was-validated');
-            }, false);
-        });
-    })();
-
     document.getElementById('book-form').addEventListener('submit', function (event) {
         event.preventDefault(); // Prevent the form from submitting normally
 
@@ -127,29 +111,38 @@
         }).toString();
 
         // Send POST request with query parameters
-        fetch(`http://localhost:5218/api/Book?${queryParams}`, {
+        fetch(`http://localhost:5106/api/Book?${queryParams}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         })
             .then(response => {
-                if (!response.ok) {
-                    return response.json().then(err => { throw new Error(err.message); });
+                // Check if the response content type is JSON
+                const contentType = response.headers.get('content-type');
+                if (contentType && contentType.includes('application/json')) {
+                    return response.json(); // Parse as JSON
+                } else {
+                    return response.text(); // Parse as plain text
                 }
-                return response.json();
             })
             .then(data => {
-                console.log('Success:', data);
+                if (typeof data === 'string') {
+                    console.log('Response:', data);
+                    alert(data); // Display the plain text message
+                } else {
+                    console.log('Success:', data);
+                    alert("Book added successfully!");
+                }
                 // Clear form fields
                 document.getElementById('book-form').reset();
-                alert("Book added successfully!");
             })
             .catch((error) => {
                 console.error('Error:', error);
                 alert("Failed to add book: " + error.message);
             });
     });
+
 </script>
 </body>
 </html>
