@@ -80,7 +80,7 @@
         const booksTableBody = document.getElementById('booksTableBody');
 
         // Fetch books data
-        fetch('http://localhost:5106/api/Book')
+        fetch('https://booktopiaapp-dae91883377e.herokuapp.com/api/Book')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Failed to load books');

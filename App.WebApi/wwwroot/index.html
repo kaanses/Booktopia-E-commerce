@@ -104,7 +104,7 @@
 <script>
     $(document).ready(function () {
         // Fetch book data from your API and display them as cards
-        fetch('http://localhost:5106/api/Book')
+        fetch('https://booktopiaapp-dae91883377e.herokuapp.com/api/Book')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Failed to fetch books.');

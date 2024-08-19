@@ -110,7 +110,7 @@
         }
 
         // Fetch the book details
-        fetch(`http://localhost:5106/api/Book/${bookId}`)
+        fetch(`https://booktopiaapp-dae91883377e.herokuapp.com/api/Book/${bookId}`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Book not found');
