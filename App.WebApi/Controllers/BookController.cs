@@ -11,23 +11,23 @@ namespace App.WebApi.Controllers
     {
         static private readonly List<book> _books = new List<book>(){
             new book { Id = 1, Title = "The Great Gatsby", Author = "F. Scott Fitzgerald", PublicationYear
- = 1925, Price = 199, ImageUrl = "https://m.media-amazon.com/images/I/71ptoyWH8dL._AC_UF1000,1000_QL80_.jpg" },
+ = 1925, Price = 8, ImageUrl = "https://m.media-amazon.com/images/I/71ptoyWH8dL._AC_UF1000,1000_QL80_.jpg" },
             new book { Id = 2, Title = "1984", Author = "George Orwell", PublicationYear
  = 1949, Price = 9, ImageUrl = "https://target.scene7.com/is/image/Target/GUEST_4b5087d0-2ca3-4e48-a041-31d29bf8979e?wid=488&hei=488&fmt=pjpeg" },
             new book { Id = 3, Title = "To Kill a Mockingbird", Author = "Harper Lee", PublicationYear
  = 1960, Price = 12, ImageUrl = "https://m.media-amazon.com/images/I/81r81MTfTuL._AC_UF1000,1000_QL80_.jpg" },
             new book { Id = 4, Title = "Pride and Prejudice", Author = "Jane Austen", PublicationYear
- = 1813, Price = 899, ImageUrl = "https://m.media-amazon.com/images/I/61vrbLFc8oL._AC_UF1000,1000_QL80_.jpg" },
+ = 1813, Price = 15, ImageUrl = "https://m.media-amazon.com/images/I/61vrbLFc8oL._AC_UF1000,1000_QL80_.jpg" },
             new book { Id = 5, Title = "Moby-Dick", Author = "Herman Melville", PublicationYear
- = 1851, Price = 1150, ImageUrl = "https://img.kitapyurdu.com/v1/getImage/fn:11303181/wh:true/wi:800" },
+ = 1851, Price = 7, ImageUrl = "https://img.kitapyurdu.com/v1/getImage/fn:11303181/wh:true/wi:800" },
             new book { Id = 6, Title = "War and Peace", Author = "Leo Tolstoy", PublicationYear
- = 1869, Price = 199, ImageUrl = "https://m.media-amazon.com/images/I/71wXZB-VtBL._AC_UF1000,1000_QL80_.jpg" },
+ = 1869, Price = 19, ImageUrl = "https://m.media-amazon.com/images/I/71wXZB-VtBL._AC_UF1000,1000_QL80_.jpg" },
             new book { Id = 7, Title = "The Odyssey", Author = "Homer", PublicationYear
- = -800, Price = 999, ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLNwCYnwlt3sqyFaPrFYvnp2pB7MvCTkI2rQ&s" },
+ = -800, Price = 9, ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLNwCYnwlt3sqyFaPrFYvnp2pB7MvCTkI2rQ&s" },
             new book { Id = 8, Title = "The Catcher in the Rye", Author = "J.D. Salinger", PublicationYear
- = 1951, Price = 100, ImageUrl = "https://m.media-amazon.com/images/I/614LavjvoLL._AC_UF1000,1000_QL80_.jpg" },
+ = 1951, Price = 13, ImageUrl = "https://m.media-amazon.com/images/I/614LavjvoLL._AC_UF1000,1000_QL80_.jpg" },
             new book { Id = 9, Title = "Brave New World", Author = "Aldous Huxley", PublicationYear
- = 1932, Price = 199, ImageUrl = "https://m.media-amazon.com/images/I/91D4YvdC0dL._AC_UF1000,1000_QL80_.jpg" }
+ = 1932, Price = 18, ImageUrl = "https://m.media-amazon.com/images/I/91D4YvdC0dL._AC_UF1000,1000_QL80_.jpg" }
         };
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<book>))]
