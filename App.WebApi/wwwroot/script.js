@@ -1,9 +1,11 @@
 (function ($) {
   "use strict";
 
-  // Collapse the navbar on link click
+  // Collapse the navbar on link click, except for dropdown items
   $('.navbar-collapse a').click(function () {
-    $(".navbar-collapse").collapse('hide');
+    if (!$(this).hasClass('dropdown-toggle')) {
+      $(".navbar-collapse").collapse('hide');
+    }
   });
 
   // Smooth scrolling for internal links

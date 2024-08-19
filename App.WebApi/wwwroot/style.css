@@ -34,10 +34,13 @@ body {
 }
 
 .card {
+    margin: 0 auto;
     background: #222;
     border: 1px solid #dd2476;
     color: rgba(250, 250, 250, 0.8);
     margin-bottom: 2rem;
+    width: 100%; /* Ensure cards take full width on smaller screens */
+    max-width: 300px; /* Set a max-width to prevent them from being too wide */
 }
 
 .btn {
@@ -190,9 +193,235 @@ html, body {
 }
 
 footer {
-    background-color: skyblue;
+    background-color:#2acc80 ;
     color: rgba(250, 250, 250, 0.8);
     padding: 1rem 0;
     text-align: center;
     width: 100%;
+}
+#product-cards-container {
+    display: flex;
+    justify-content: center; /* Centers the cards horizontally */
+    flex-wrap: wrap; /* Ensures the cards wrap to the next line as needed */
+}
+.card-img-top {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    object-position: center;
+}
+#introCarousel,
+.carousel-inner,
+.carousel-item,
+.carousel-item.active {
+    height: 100vh;
+}
+
+.carousel-item:nth-child(1) {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+
+.carousel-item:nth-child(2) {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+
+.carousel-item:nth-child(3) {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+
+/* Height for devices larger than 576px */
+@media (min-width: 992px) {
+    #introCarousel {
+        margin-top: -58.59px;
+    }
+}
+
+.navbar {
+    background-color: rgb(79, 160, 96) !important;
+}
+.nav-link {
+    color: black !important;
+}
+#introCarousel,
+.carousel-inner,
+.carousel-item {
+    height: 100vh; /* Set a consistent height for all carousel items */
+}
+
+.carousel-item img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover; /* Ensures the image covers the entire carousel item area */
+    object-position: center; /* Centers the image within the carousel item */
+}
+
+.mask {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.navbar-nav {
+    flex-direction: row; /* Ensure items are in a row */
+}
+
+.navbar-nav.mx-auto {
+    flex-grow: 1;
+    justify-content: center; /* Center the middle links */
+}
+
+.navbar-nav.ms-auto {
+    margin-left: auto; /* Push "Manager" dropdown to the right */
+}
+
+.navbar .nav-link {
+    color: black !important;
+    text-align: center;
+    padding: 0.5rem 1rem; /* Adjust padding if necessary */
+}
+
+.navbar .navbar-brand {
+    margin-right: auto;
+}
+
+.navbar-toggler {
+    border-color: transparent;
+}
+body {
+    margin-top: 20px;
+}
+
+/* Footer Section */
+.deneb_footer .widget_wrapper {
+    background-color: #4fa060;
+    padding: 50px 0;
+}
+
+.deneb_footer .widget_about img {
+    padding-top: 20px;
+}
+
+.deneb_footer .widget_about p {
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.deneb_footer .widget_about .social {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.deneb_footer .widget_about .social li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.deneb_footer .widget_about .social li a {
+    display: block;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 50%;
+    background-color: #f9e6d4;
+    color: #fba543;
+    font-size: 14px;
+    transition: all 0.5s ease-out;
+}
+
+.deneb_footer .widget_about .social li a:hover,
+.deneb_footer .widget_about .social li a:focus {
+    background-color: #feb000;
+    color: #fff;
+    box-shadow: 2.5px 4.33px 15px 0px rgba(254, 176, 0, 0.4);
+}
+
+.deneb_footer .widget_title h4 {
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.deneb_footer .footer_links {
+    list-style-type: none; /* Removes dots from the links */
+    padding-left: 0;
+}
+
+.deneb_footer .footer_links li {
+    margin-bottom: 10px;
+}
+
+.deneb_footer .footer_links li a {
+    color: #fff;
+    text-transform: capitalize;
+    transition: color 0.3s ease;
+}
+
+.deneb_footer .footer_links li a:hover,
+.deneb_footer .footer_links li a:focus {
+    color: #feb000;
+}
+
+.deneb_footer .widget_contact {
+    margin-left: 0; /* Aligns Contact Us to the left */
+    padding-left: 0; /* Removes any additional padding */
+}
+
+.deneb_footer .widget_contact .contact_info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 0; /* Ensures everything aligns to the left */
+}
+
+.deneb_footer .widget_contact .contact_info .single_info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 100%; /* Ensures that the width of each row matches the parent */
+}
+
+.deneb_footer .widget_contact .contact_info .single_info .icon {
+    font-size: 18px;
+    color: #feb000;
+    margin-right: 10px;
+    min-width: 30px; /* Keeps the icon's width consistent */
+}
+
+.deneb_footer .widget_contact .contact_info .single_info .info {
+    flex: 1;
+    text-align: center; /* Ensures the text is aligned to the left */
+}
+
+.deneb_footer .widget_contact .contact_info .single_info .info p {
+    margin: 0;
+    color: #fff;
+}
+
+.deneb_footer .widget_contact .contact_info .single_info .info p a {
+    color: #fff;
+    transition: color 0.3s ease;
+}
+
+.deneb_footer .widget_contact .contact_info .single_info .info p a:hover {
+    color: #feb000;
+}
+
+.deneb_footer .copyright_area {
+    background-color: #3e8d53;
+    padding: 15px 0;
+}
+
+.deneb_footer .copyright_text {
+    color: #fff;
+    text-align: center;
+}
+.widget_title {
+    padding-left:50px;
 }
