@@ -1,6 +1,5 @@
-using System.Diagnostics;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace App.WebApi.Controllers
