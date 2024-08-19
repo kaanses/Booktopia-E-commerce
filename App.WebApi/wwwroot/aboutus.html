@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Update Book | Booktopia</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         .interior_13 .text-blk.section-head {
             line-height: 45px;
@@ -674,7 +675,7 @@
                                 <div class="col-12 col-md-6">
                                     <div class="card border border-dark">
                                         <div class="card-body p-4">
-                                            <h3 class="display-5 fw-bold text-primary text-center mb-2 book-list-length">Loading...</h3>
+                                            <h3 class="display-5 fw-bold text-primary text-center mb-2 book-list-length" id="bookListLength"></h3>
                                             <p class="fw-bold text-center m-0">Books Available</p>
                                         </div>
                                     </div>
@@ -861,36 +862,119 @@
     </div>
 </div>
 </section>
-<div class="container">
-    <footer class="py-3 my-4">
-        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-            <li class="nav-item"><a href="index.html" class="nav-link px-2 text-body-secondary">Home</a></li>
-            <li class="nav-item"><a href="aboutus.html" class="nav-link px-2 text-body-secondary">About Us</a></li>
-        </ul>
-        <p class="text-center text-body-secondary">© 2024 Booktopia, Inc</p>
-        <p class="text-center text-body-secondary">Designed by Kaan Ses</p>
-    </footer>
-</div>
+    <section id="footer">
+        <footer class="deneb_footer">
+            <div class="widget_wrapper" style="background-color: #4fa060; padding: 50px 0;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <div class="widget widget_about">
+                                <div class="widget_title">
+                                    <img src="assets/logo-no-background.png" class="img-fluid" alt="Booktopia Logo" style="padding-top: 20px;">
+                                </div>
+                                <p>Booktopia is your online bookstore for all genres, offering a curated selection of books to satisfy every reader. Dive into our collection and find your next great read.</p>
+                                <ul class="social">
+                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12 mt-3">
+                            <div class="widget widget_link">
+                                <div class="widget_title">
+                                    <h4>Quick Links</h4>
+                                </div>
+                                <ul class="footer_links pl-5 ms-5" >
+                                    <li><a href="index.html">Home</a></li>
+                                    <li><a href="index.html#buynow">Shop Now</a></li>
+                                    <li><a href="aboutus.html">About Us</a></li>
+                                    <li><a href="aboutus.html#contactus">Contact</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12 mt-3">
+                            <div class="widget widget_contact">
+                                <div class="widget_title">
+                                    <h4>Contact Us</h4>
+                                </div>
+                                <div class="contact_info">
+                                    <div class="single_info">
+                                        <div class="icon">
+                                            <i class="fas fa-phone-alt"></i>
+                                        </div>
+                                        <div class="info">
+                                            <p><a href="tel:+18001213637">1800-121-3637</a></p>
+                                            <p><a href="tel:+919246147999">+91 924-614-7999</a></p>
+                                        </div>
+                                    </div>
+                                    <div class="single_info">
+                                        <div class="icon">
+                                            <i class="fas fa-envelope"></i>
+                                        </div>
+                                        <div class="info">
+                                            <p><a href="mailto:info@booktopia.com">info@booktopia.com</a></p>
+                                            <p><a href="mailto:support@booktopia.com">support@booktopia.com</a></p>
+                                        </div>
+                                    </div>
+                                    <div class="single_info">
+                                        <div class="icon">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                        </div>
+                                        <div class="info">
+                                            <p>12/14,Maltepe ,<span>İstanbul, Türkiye</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright_area" style="background-color: #3e8d53; padding: 15px 0;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="copyright_text text-center">
+                                <p>&copy; 2024 Booktopia, Inc. Designed by Kaan Ses.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </section>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-    fetchBookList();
-});
+        fetchBookList();
+    });
 
-function fetchBookList() {
-    fetch('https://booktopiaapp-dae91883377e.herokuapp.com/api/books')
-        .then(response => response.json())
-        .then(data => {
+    async function fetchBookList() {
+        try {
+            const response = await fetch('https://booktopiaapp-dae91883377e.herokuapp.com/api/books');
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const textData = await response.text();
+            const data = textData ? JSON.parse(textData) : [];
+
+            console.log('Book list length:', data.length);
             displayBookListLength(data.length);
-        })
-        .catch(error => console.error('Error fetching book list:', error));
-}
-
-function displayBookListLength(length) {
-    const qualifiedExpertsElement = document.querySelector('.book-list-length');
-    if (qualifiedExpertsElement) {
-        qualifiedExpertsElement.textContent = `${length}+`;
+        } catch (error) {
+            console.error('Error fetching book list:', error);
+        }
     }
-}</script>
+
+    function displayBookListLength(length) {
+        const bookListLength = document.querySelector('.book-list-length');
+        if (bookListLength) {
+            console.log('Updating book list length:', length);
+            bookListLength.textContent = `${length}+`;
+        }
+    }
+</script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="script.js" crossorigin="anonymous"></script>

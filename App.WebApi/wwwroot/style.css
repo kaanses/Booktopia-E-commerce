@@ -141,7 +141,7 @@ html, body {
     margin-top: 16px;
 }
 
-.btn-primary {
+btn-primary {
     background-color: #6C757D;
     outline: none;
     border: 0;
@@ -412,7 +412,6 @@ body {
 .deneb_footer .widget_contact .contact_info .single_info .info p a:hover {
     color: #feb000;
 }
-
 .deneb_footer .copyright_area {
     background-color: #3e8d53;
     padding: 15px 0;
